@@ -1,0 +1,15 @@
+var MID_uniquvalue  = gs.getProperty('getmidserver_uniquevalue_midsrvserverLAN');
+var getMid = new GlideRecord('ecc_agent');
+getMid.addQuery('sys_id',MID_uniquvalue);
+getMid.query();
+if(getMid.next()){
+if(getMid.getValue(('status'))=='Down'){
+  outputs.error_log = 'Operation (serevrLAN integration) failed because no valid MID is available,Please check System Logs.';
+  outputs.status = 200;
+}else if(getMid.getValue(('status'))=='Up'){
+  outputs.error_log = 'Mid Server is Avaialable';
+  outputs.status = 100;
+}else if(getMid.getValue(('status'))==''){
+  outputs.error_log = 'Operation (serevrLAN integration) failed because no valid MID is available,Please check System Logs.';
+  outputs.status = 200;
+}}
